@@ -14,8 +14,8 @@ This project integrates Python with an R script to fetch weather data for a spec
 
 1. Clone the repository:
     ```sh
-    git clone <repository-url>
-    cd <repository-directory>
+    git clone github.com/fiap-tiaor-farmtech/weatheR-module.git
+    cd weatheR-module
     ```
 
 2. Install the required Python libraries:
