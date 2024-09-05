@@ -1,60 +1,60 @@
-# Instalar o pacote necessário (se ainda não estiver instalado)
-# install.packages("httr")
-# install.packages("jsonlite")
-
 # Carregando bibliotecas
 library(httr)
 library(jsonlite)
 
-# get function from namespace instead of possibly getting
-# implementation shipped with recent R versions:
-bp_URLencode = getFromNamespace("URLencode", "backports")
-
 # Função para fazer requisição à API
-call_api <- function(u) {
-  data <- try(RETRY("GET", u))
+weather_api <- function(params) {
+  # get function from namespace instead of possibly getting
+  # implementation shipped with recent R versions:
+  bp_URLencode = getFromNamespace("URLencode", "backports")
 
+  # Chave de acesso à API OpenWeatherMap
+  api_key <- "0ab1ba6c3616f8bad85d4275978ea1f4"
+
+  # URL da API
+  api_url <- "https://api.openweathermap.org/data/2.5/weather"
+
+  # Concatena a URL da API com os parâmetros da requisição
+  url <- bp_URLencode(paste0(api_url, "?", params, "&appid=", api_key, "&units=metric&lang=pt_br")) # nolint
+
+  # Faz a requisição à API no máximo 3 tentativas
+  data <- try(RETRY("GET", url, times = 3))
+
+  # Verifica se houve erro na requisição
   if (is(data, "try-error")) data <- list(status_code = 404)
 
+  # Verifica se a requisição foi bem sucedida
   if (data$status_code != 200) {
     stop("Erro ao consultar a API", call. = FALSE)
   }
 
-  return(data)
+  # Converte o resultado para JSON
+  result <- fromJSON(content(data, "text"), simplifyVector = FALSE)
+
+  # Retorna o resultado
+  return(result)
 }
 
-# Chave de acesso à API OpenWeatherMap
-api_key <- "0ab1ba6c3616f8bad85d4275978ea1f4"
+# Função para fazer requisição à API
+weather_geo <- function(lat, lon) {
+  # set parameters to call weather_api
+  params <- paste0("lat=", lat, "&lon=", lon)
 
-# URL da API
-api_url <- "https://api.openweathermap.org/data/2.5/weather"
+  # call weather_api
+  result <- weather_api(params)
 
-# Localidade desejada
-city <- "Sao Paulo,BR"
-
-# Montar a URL da API
-url <- bp_URLencode(paste0(api_url, "?q=", city, "&appid=", api_key, "&units=metric&lang=pt_br")) # nolint
-
-# Chamar API e converter a resposta em JSON
-result <- fromJSON(content(call_api(url), "text"), simplifyVector = FALSE)
-
-# Extrair as informações relevantes
-if (result$cod == 200) {
-  descricao <- result$weather[[1]]$description
-  temperatura <- result$main$temp
-  sensacao_termica <- result$main$feels_like
-  umidade <- result$main$humidity
-  vento <- result$wind$speed
-
-  # Exibir a previsão do tempo
-  cat("Previsão do tempo para", city, ":\n")
-  cat("Descrição:", descricao, "\n")
-  cat("Temperatura:", temperatura, "°C\n")
-  cat("Sensação térmica:", sensacao_termica, "°C\n")
-  cat("Umidade:", umidade, "%\n")
-  cat("Velocidade do vento:", vento, "m/s\n")
-} else {
-  cat("Cidade não encontrada ou ocorreu um erro na requisição.\n")
+  # Retorna o resultado
+  return(result)
 }
 
-q()
+# Função para fazer requisição à API
+weather_city <- function(city) {
+  # set parameters to call weather_api
+  params <- paste0("q=", city)
+
+  # call weather_api
+  result <- weather_api(params)
+
+  # Retorna o resultado
+  return(result)
+}

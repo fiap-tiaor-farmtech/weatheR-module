@@ -1,0 +1,9 @@
+cffi==1.17.1
+Jinja2==3.1.4
+MarkupSafe==2.1.5
+packaging==24.1
+pycparser==2.22
+python-dotenv==1.0.1
+rpy2==3.5.16
+tzdata==2024.1
+tzlocal==5.2
