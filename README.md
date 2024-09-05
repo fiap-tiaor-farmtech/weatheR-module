@@ -14,7 +14,7 @@ This project integrates Python with an R script to fetch weather data for a spec
 
 1. Clone the repository:
     ```sh
-    git clone github.com/fiap-tiaor-farmtech/weatheR-module.git
+    git clone https://github.com/fiap-tiaor-farmtech/weatheR-module.git
     cd weatheR-module
     ```
 
