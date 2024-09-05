@@ -10,9 +10,7 @@ library(jsonlite)
 # implementation shipped with recent R versions:
 bp_URLencode = getFromNamespace("URLencode", "backports")
 
-# Fazer a requisição à API
-# response <- GET(url = call)
-
+# Função para fazer requisição à API
 call_api <- function(u) {
   data <- try(RETRY("GET", u))
 
@@ -28,22 +26,17 @@ call_api <- function(u) {
 # Chave de acesso à API OpenWeatherMap
 api_key <- "0ab1ba6c3616f8bad85d4275978ea1f4"
 
-# Localidade desejada (substitua 'Sao Paulo,BR')
+# URL da API
+api_url <- "https://api.openweathermap.org/data/2.5/weather"
+
+# Localidade desejada
 city <- "Sao Paulo,BR"
 
 # Montar a URL da API
-base_url <- "https://api.openweathermap.org/data/2.5/weather"
-url <- bp_URLencode(paste0(base_url, "?q=", city, "&appid=", api_key, "&units=metric&lang=pt_br")) # nolint
+url <- bp_URLencode(paste0(api_url, "?q=", city, "&appid=", api_key, "&units=metric&lang=pt_br")) # nolint
 
-response <- call_api(url)
-
-# # Verificar se a requisição foi bem-sucedida
-# if (status_code(response) != 200) {
-#   stop('Erro ao consultar a API', call. = FALSE)
-# }
-
-# Converter a resposta em um objeto R
-result <- fromJSON(content(response, "text"), simplifyVector = FALSE)
+# Chamar API e converter a resposta em JSON
+result <- fromJSON(content(call_api(url), "text"), simplifyVector = FALSE)
 
 # Extrair as informações relevantes
 if (result$cod == 200) {
@@ -52,14 +45,16 @@ if (result$cod == 200) {
   sensacao_termica <- result$main$feels_like
   umidade <- result$main$humidity
   vento <- result$wind$speed
-  
+
   # Exibir a previsão do tempo
-  cat('Previsão do tempo para', city, ':\n')
-  cat('Descrição:', descricao, '\n')
-  cat('Temperatura:', temperatura, '°C\n')
-  cat('Sensação térmica:', sensacao_termica, '°C\n')
-  cat('Umidade:', umidade, '%\n')
-  cat('Velocidade do vento:', vento, 'm/s\n')
+  cat("Previsão do tempo para", city, ":\n")
+  cat("Descrição:", descricao, "\n")
+  cat("Temperatura:", temperatura, "°C\n")
+  cat("Sensação térmica:", sensacao_termica, "°C\n")
+  cat("Umidade:", umidade, "%\n")
+  cat("Velocidade do vento:", vento, "m/s\n")
 } else {
-  cat('Cidade não encontrada ou ocorreu um erro na requisição.\n')
+  cat("Cidade não encontrada ou ocorreu um erro na requisição.\n")
 }
+
+q()
