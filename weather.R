@@ -28,7 +28,7 @@ weather_api <- function(params) {
     stop("Erro ao consultar a API", call. = FALSE)
   }
 
-  # Converte o resultado para JSON
+  # Converte o resultado de JSON para um objeto R
   result <- fromJSON(content(data, "text"), simplifyVector = FALSE)
 
   # Retorna o resultado
