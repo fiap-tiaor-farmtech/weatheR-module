@@ -9,6 +9,7 @@ This project integrates Python with an R script to fetch weather data for a spec
 - `rpy2` library
 - `python-dotenv` library
 - `weather.R` script
+- OpenWeatherMap API key
 
 ## Installation
 
@@ -28,6 +29,7 @@ This project integrates Python with an R script to fetch weather data for a spec
 4. Create a `.env` file in the root directory of the project and add R_HOME environment variable:
     ```sh
     R_HOME=<path-to-R-installation>
+    API_KEY=<your-openweathermap-api-key>
     ```
 
 ## Usage

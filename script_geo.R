@@ -1,18 +1,14 @@
-# Instalar o pacote necessário (se ainda não estiver instalado)
-# install.packages("httr")
-# install.packages("jsonlite")
-
-# Description: Script principal que chama a função weather_api() para obter a previsão do tempo de uma cidade.
+# Load the necessary R file with the functions
 source("weather.R")
 
-# Localidade desejada #1
+# Desired location #2
 lat <- -23.5489
 lon <- -46.6388
 
-# Faz a requisição à API
+# Call the function weather_geo() to get the weather forecast with the new coordinates
 result <- weather_geo(lat, lon)
 
-# Extrair as informações relevantes
+# Extract the relevant information
 if (result$cod == 200) {
   cidade <- result$name
   pais <- result$sys$country
@@ -22,7 +18,7 @@ if (result$cod == 200) {
   umidade <- result$main$humidity
   vento <- result$wind$speed
 
-  # Exibir a previsão do tempo
+  # Display the weather forecast
   cat("Previsão do tempo para", cidade, "-", pais, ":\n")
   cat("Descrição:", descricao, "\n")
   cat("Temperatura:", temperatura, "°C\n")
@@ -35,14 +31,14 @@ if (result$cod == 200) {
 
 cat("-----------------------------\n")
 
-# Localidade desejada #2
+# Desired location #2
 lat <- 37.42159
 lon <- -122.08374
 
-# Faz a requisição à API
+# Call the function weather_geo() to get the weather forecast with the new coordinates
 result <- weather_geo(lat, lon)
 
-# Extrair as informações relevantes
+# Extract the relevant information
 if (result$cod == 200) {
   cidade <- result$name
   pais <- result$sys$country
@@ -52,7 +48,7 @@ if (result$cod == 200) {
   umidade <- result$main$humidity
   vento <- result$wind$speed
 
-  # Exibir a previsão do tempo
+  # Display the weather forecast
   cat("Previsão do tempo para", cidade, "-", pais, ":\n")
   cat("Descrição:", descricao, "\n")
   cat("Temperatura:", temperatura, "°C\n")
@@ -63,6 +59,5 @@ if (result$cod == 200) {
   cat("Cidade não encontrada ou ocorreu um erro na requisição.\n")
 }
 
-
-
+# Quit the R session
 q()

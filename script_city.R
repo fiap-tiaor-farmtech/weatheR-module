@@ -1,17 +1,13 @@
-# Instalar o pacote necessário (se ainda não estiver instalado)
-# install.packages("httr")
-# install.packages("jsonlite")
-
-# Description: Script principal que chama a função weather_api() para obter a previsão do tempo de uma cidade.
+# Load the necessary R file with the functions
 source("weather.R")
 
-# Localidade desejada
+# Set the desired city
 city <- "Sao Paulo,BR"
 
-# Faz a requisição à API
+# Call the function weather_city() to get the weather forecast with the new city
 result <- weather_city(city)
 
-# Extrair as informações relevantes
+# Extract the relevant information
 if (result$cod == 200) {
   descricao <- result$weather[[1]]$description
   temperatura <- result$main$temp
@@ -19,7 +15,7 @@ if (result$cod == 200) {
   umidade <- result$main$humidity
   vento <- result$wind$speed
 
-  # Exibir a previsão do tempo
+  # Display the weather forecast
   cat("Previsão do tempo para", city, ":\n")
   cat("Descrição:", descricao, "\n")
   cat("Temperatura:", temperatura, "°C\n")
@@ -30,4 +26,5 @@ if (result$cod == 200) {
   cat("Cidade não encontrada ou ocorreu um erro na requisição.\n")
 }
 
+# Quit the R session
 q()
