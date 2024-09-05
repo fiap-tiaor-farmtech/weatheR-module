@@ -35,7 +35,7 @@ weather_api <- function(params) {
   return(result)
 }
 
-# Função para fazer requisição à API
+# Função para fazer requisição à API passando parâmetros de latitude e longitude
 weather_geo <- function(lat, lon) {
   # set parameters to call weather_api
   params <- paste0("lat=", lat, "&lon=", lon)
@@ -47,7 +47,7 @@ weather_geo <- function(lat, lon) {
   return(result)
 }
 
-# Função para fazer requisição à API
+# Função para fazer requisição à API passando parâmetro de cidade, ex: "São Paulo/BR"
 weather_city <- function(city) {
   # set parameters to call weather_api
   params <- paste0("q=", city)
