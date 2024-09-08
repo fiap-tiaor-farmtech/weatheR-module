@@ -21,7 +21,8 @@ This project integrates Python with an R script to fetch weather data for a spec
 
 2. Install the required Python libraries:
     ```sh
-    pip install requirements.txt
+    pip install -r requirements.txt
+
     ```
 
 3. Ensure R is installed on your system and accessible from the command line.

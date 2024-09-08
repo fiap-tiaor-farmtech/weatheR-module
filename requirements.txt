@@ -7,3 +7,5 @@ python-dotenv==1.0.1
 rpy2==3.5.16
 tzdata==2024.1
 tzlocal==5.2
+numpy==2.1.1
+pandas==2.2.2

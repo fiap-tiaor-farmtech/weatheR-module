@@ -39,8 +39,11 @@ weather_api <- function(params) {
     stop(paste0("Error: API request failed with status code ", data$status_code), call. = FALSE) # nolint
   }
 
-  # Parse JSON response
-  result <- fromJSON(content(data, "text"), simplifyVector = FALSE)
+  # Parse JSON to object
+  result_obj <- fromJSON(content(data, "text", type = "application/json", encoding = "UTF-8"), simplifyVector = FALSE)
+
+  # Parse JSON response to data frame
+  result <- as.data.frame(result_obj)
 
   # Return result
   return(result)

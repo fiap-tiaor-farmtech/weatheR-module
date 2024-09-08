@@ -7,13 +7,12 @@ city <- "Sao Paulo,BR"
 # Call the function weather_city() to get the weather forecast with the new city
 result <- weather_city(city)
 
-# Extract the relevant information
 if (result$cod == 200) {
-  descricao <- result$weather[[1]]$description
-  temperatura <- result$main$temp
-  sensacao_termica <- result$main$feels_like
-  umidade <- result$main$humidity
-  vento <- result$wind$speed
+  descricao <- result$weather.description
+  temperatura <- result$main.temp
+  sensacao_termica <- result$main.feels_like
+  umidade <- result$main.humidity
+  vento <- result$wind.speed
 
   # Display the weather forecast
   cat("Previsão do tempo para", city, ":\n")
