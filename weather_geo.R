@@ -1,5 +1,3 @@
-library(jsonlite)
-
 # Load the necessary R file with the functions
 source("weather.R")
 
@@ -8,13 +6,12 @@ lat <- -23.5489
 lon <- -46.6388
 
 # Call the function weather_geo() to get the weather forecast with the new coordinates
-# result <- fromJSON(weather_geo(lat, lon), simplifyVector = FALSE)
 result <- weather_geo(lat, lon)
 
 # Extract the relevant information
 if (result$cod == 200) {
   cidade <- result$name
-  pais <- result$sys$country
+  pais <- result$sys.country
   descricao <- result$weather.description
   temperatura <- result$main.temp
   sensacao_termica <- result$main.feels_like
@@ -39,13 +36,12 @@ lat <- 37.42159
 lon <- -122.08374
 
 # Call the function weather_geo() to get the weather forecast with the new coordinates
-# result <- fromJSON(weather_geo(lat, lon), simplifyVector = FALSE)
 result <- weather_geo(lat, lon)
 
 # Extract the relevant information
 if (result$cod == 200) {
   cidade <- result$name
-  pais <- result$sys$country
+  pais <- result$sys.country
   descricao <- result$weather.description
   temperatura <- result$main.temp
   sensacao_termica <- result$main.feels_like

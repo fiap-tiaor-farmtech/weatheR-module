@@ -1,0 +1,12 @@
+culturas;['milho', 'soja']
+figura geometrica;retangulo
+largura do terreno (m);150.00
+comprimento do terreno (m);200.00
+espacamento entre fileiras (m);0.75
+quantidade por metro quadrado (mL);500.00
+area total (m2);30000.00
+numero de fileiras;200
+volume por fileira (litros);100.00
+volume total necessario (litros);20000.00
+latitude;-23.55558535
+longitude;-46.63499217866492
